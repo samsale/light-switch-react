@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Light from './light.js'
+import Switch from './switch.js'
+import Buttons from './buttons.js'
+import Header from './header.js'
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      lightArray :[<Light />]
+    }
+  }
+
+  addLight(){
+    let {lightArray} = this.state
+
+    lightArray.push(<Light/>)
+    this.setState({lightArray: lightArray})
+  }
+
+  removeLight(){
+    let {lightArray} = this.state
+    if (lightArray.length > 1){
+    lightArray.pop()}
+    this.setState({lightArray: lightArray})
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+      <div>
+      <Header/>
+      <Buttons callAddLightsFunction={this.addLight.bind(this)} callRemoveLightsFunction={this.removeLight.bind(this)}/>
+      </div>
+      <div id="box">
+      {this.state.lightArray}
+      </div>
       </div>
     );
   }
